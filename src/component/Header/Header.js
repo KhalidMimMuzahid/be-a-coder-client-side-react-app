@@ -1,10 +1,26 @@
 import React, { useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/UserContex";
 
 const Header = () => {
+  const { currentUser, logOut } = useContext(AuthContext);
+  console.log(currentUser?.displayName);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    console.log("clicked", currentUser?.displayName);
+    logOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
+  };
   return (
-    <div className="bg-gray-900">
+    <div className="bg-gray-900 fixed top-0 right-0 left-0 z-50">
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full md:max-w-screen-xl md:px-24 md:px-8">
         <div className="relative flex items-center justify-between">
           <Link
@@ -14,20 +30,20 @@ const Header = () => {
             className="inline-flex items-center"
           >
             <svg
-              className="w-8 text-teal-accent-400"
-              viewBox="0 0 24 24"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeMiterlimit="10"
-              stroke="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
               fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="w-6 h-6 text-white font-bold text-lg"
             >
-              <rect x="3" y="1" width="7" height="12" />
-              <rect x="3" y="17" width="7" height="6" />
-              <rect x="14" y="1" width="7" height="6" />
-              <rect x="14" y="11" width="7" height="12" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+              />
             </svg>
+
             <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
               Be A Coder
             </span>
@@ -63,46 +79,55 @@ const Header = () => {
                 Blogs
               </Link>
             </li>
-            <li>
-              <Link
-                to="/signin"
-                aria-label="signin"
-                title="signin"
-                className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-              >
-                Sign in
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/signup"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
-              >
-                Sign up
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/signout"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
-              >
-                Sign Out
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/profile"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
-              >
-                Profile
-              </Link>
-            </li>
+
+            {!currentUser ? (
+              <>
+                <li>
+                  <Link
+                    to="/signin"
+                    aria-label="signin"
+                    title="signin"
+                    className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                  >
+                    Sign in
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/signup"
+                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                    aria-label="Sign up"
+                    title="Sign up"
+                  >
+                    Sign up
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link
+                    onClick={handleSignOut}
+                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                    aria-label="Sign up"
+                    title="Sign up"
+                  >
+                    Sign Out
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/profile"
+                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                    aria-label="Sign up"
+                    title="Sign up"
+                  >
+                    Profile
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
 
           <div className="md:hidden">
