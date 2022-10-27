@@ -54,11 +54,13 @@ const Home = () => {
                   </svg>
                   <span className="relative">The</span>
                 </span>{" "}
-                quick, brown fox jumps over a lazy dog
+                The best teacher can make a Best student
               </h2>
               <p className="text-base text-indigo-100 md:text-lg">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque rem aperiam, eaque ipsa quae.
+                Learn with our best teacher in the world. The most tallented and
+                greatest supervsor will teach you what you need to learn. So,
+                Dont weaste your time. jsut join us an make yourself rich in
+                knoledge
               </p>
             </div>
             <div>
