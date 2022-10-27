@@ -18,7 +18,7 @@ export const AuthContext = createContext();
 
 const UserContex = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
-
+  const [isDark, setIsDark] = useState(false);
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
   const signUpWithEmailAndPassword = (email, password) => {
@@ -53,6 +53,8 @@ const UserContex = ({ children }) => {
     currentUser,
     logOut,
     updateUserProfileInfo,
+    isDark,
+    setIsDark,
   };
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
