@@ -9,6 +9,7 @@ import ErrorPage from "../component/ErrorPage/ErrorPage";
 import Home from "../component/Home/Home";
 import SignIn from "../component/SignIn/SignIn";
 import SignUp from "../component/SignUp/SignUp";
+import UserProfile from "../component/UserProfile/UserProfile";
 import Main from "../layout/Main";
 import PrivetRoutes from "./PrivetRoutes";
 
@@ -37,6 +38,10 @@ export const routes = createBrowserRouter([
       {
         path: "/signin",
         element: <SignIn />,
+      },
+      {
+        path: "/profile",
+        element: <UserProfile />,
       },
       {
         path: "/courses",
