@@ -17,7 +17,8 @@ const SignUp = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const displayName = e.target.name.value;
-    const userInfo = { displayName };
+    const photoURL = e.target.photo.value;
+    const userInfo = { displayName, photoURL };
     setIsLoading(true);
     signUpWithEmailAndPassword(email, password)
       .then((userCredential) => {
@@ -26,7 +27,9 @@ const SignUp = () => {
         const user = userCredential.user;
         // console.log(user);
         setIsLoading(false);
+
         navigate("/");
+        window.location.reload();
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -72,8 +75,8 @@ const SignUp = () => {
       });
   };
   return (
-    <div className="h-screen pt-28 border border-slate-900 border-4 flex justify-center">
-      <div className="w-full max-w-md p-8 space-y-3 rounded-xl my-4 bg-gray-900 text-gray-100 border border-slate-900 border-4">
+    <div className="h-full pt-24 border border-slate-900 border-4 flex justify-center border border-black border-4">
+      <div className="h-full w-full max-w-md px-8 py-2 space-y-0 rounded-xl my-4 bg-gray-900 text-gray-100 border border-4 border border-red-900 border-4">
         <h1 className="text-2xl font-bold text-center">Sign Up</h1>
         <form
           onSubmit={handleFormSubmit}
@@ -90,6 +93,19 @@ const SignUp = () => {
               name="name"
               id="name"
               placeholder="Full Name"
+              className="w-full px-4 py-3 rounded-md border-gray-700 bg-gray-700 text-gray-100 focus:border-violet-400"
+              required
+            />
+          </div>
+          <div className="space-y-1 text-sm">
+            <label htmlFor="photo" className="block text-gray-400">
+              Your Photo URL
+            </label>
+            <input
+              type="text"
+              name="photo"
+              id="photo"
+              placeholder="Photo URL"
               className="w-full px-4 py-3 rounded-md border-gray-700 bg-gray-700 text-gray-100 focus:border-violet-400"
               required
             />
@@ -119,12 +135,9 @@ const SignUp = () => {
               className="w-full px-4 py-3 rounded-md border-gray-700 bg-gray-700 text-gray-100 focus:border-violet-400"
               required
             />
-            <div className="flex justify-end text-xs text-gray-400">
-              <button>Forgot Password?</button>
-            </div>
           </div>
           <button className="block w-full p-3 text-center rounded-sm text-gray-900 bg-violet-400">
-            Sign in
+            Sign Up
           </button>
         </form>
         <div className="flex items-center pt-4 space-x-1">

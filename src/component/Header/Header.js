@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/UserContex";
 
 const Header = () => {
-  const { setIsLoading, isLoading } = useContext(AuthContext);
-  // useEffect(() => {
-  //   setIsLoading(!isLoading);
-  // }, [isLoading]);
   const { currentUser, logOut, isDark, setIsDark } = useContext(AuthContext);
   console.log(currentUser);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -124,8 +120,12 @@ const Header = () => {
                     to="/profile"
                     className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                   >
-                    {currentUser.displayName}
-                    {currentUser.email}
+                    <img
+                      src={currentUser.photoURL}
+                      alt={currentUser.displayName}
+                      title={currentUser.displayName}
+                      className="object-cover object-center w-8 h-8 rounded-full shadow-sm dark:bg-gray-500 dark:border-gray-700"
+                    />
                   </Link>
                 </li>
               </>
