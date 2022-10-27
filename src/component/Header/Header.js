@@ -120,27 +120,18 @@ const Header = () => {
                   <Link
                     to="/profile"
                     className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                    aria-label="Sign up"
-                    title="Sign up"
                   >
-                    Profile
+                    {currentUser.displayName}
                   </Link>
                 </li>
               </>
             )}
-            {currentUser && (
-              <li>
-                <h1 className="font-bold text-white">
-                  {currentUser.displayName}
-                </h1>
-              </li>
-            )}
           </ul>
           {/* mobile view */}
           <div className="md:hidden">
-            <div className="flex">
+            <div className="flex items-center">
               {currentUser && (
-                <h1 className="font-bold text-white">
+                <h1 className="font-bold text-white text-lg">
                   {currentUser.displayName}
                 </h1>
               )}
