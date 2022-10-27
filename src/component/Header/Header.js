@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/UserContex";
 
 const Header = () => {
+  const { setIsLoading, isLoading } = useContext(AuthContext);
+  // useEffect(() => {
+  //   setIsLoading(!isLoading);
+  // }, [isLoading]);
   const { currentUser, logOut, isDark, setIsDark } = useContext(AuthContext);
-  console.log(currentUser?.displayName);
+  console.log(currentUser);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const handleSignOut = (e) => {
     e.preventDefault();
-    console.log("clicked", currentUser?.displayName);
     logOut()
       .then(() => {
         // Sign-out successful.
@@ -122,6 +125,7 @@ const Header = () => {
                     className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                   >
                     {currentUser.displayName}
+                    {currentUser.email}
                   </Link>
                 </li>
               </>
@@ -162,6 +166,7 @@ const Header = () => {
               {currentUser && (
                 <h1 className="font-bold text-white text-lg">
                   {currentUser.displayName}
+                  {/* {currentUser.email} */}
                 </h1>
               )}
               <button

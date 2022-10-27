@@ -3,12 +3,13 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/UserContex";
 
-const SignUp = ({ updateUserInfo }) => {
+const SignUp = () => {
   const {
     signUpWithEmailAndPassword,
     signInWithGoogle,
     signInWithGithub,
     updateUserProfileInfo,
+    setIsLoading,
   } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleFormSubmit = (e) => {
@@ -17,12 +18,14 @@ const SignUp = ({ updateUserInfo }) => {
     const password = e.target.password.value;
     const displayName = e.target.name.value;
     const userInfo = { displayName };
+    setIsLoading(true);
     signUpWithEmailAndPassword(email, password)
       .then((userCredential) => {
         updateUserProfile(userInfo);
         // console.log(userInfo);
         const user = userCredential.user;
-        console.log(user);
+        // console.log(user);
+        setIsLoading(false);
         navigate("/");
       })
       .catch((error) => {
@@ -31,6 +34,7 @@ const SignUp = ({ updateUserInfo }) => {
       });
   };
   const handleSignInWithGoogle = () => {
+    setIsLoading(true);
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
@@ -43,6 +47,7 @@ const SignUp = ({ updateUserInfo }) => {
       });
   };
   const handleSignInWithGithub = () => {
+    setIsLoading(true);
     signInWithGithub()
       .then((result) => {
         const user = result.user;

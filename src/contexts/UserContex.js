@@ -19,6 +19,7 @@ export const AuthContext = createContext();
 const UserContex = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
   const [isDark, setIsDark] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
   const signUpWithEmailAndPassword = (email, password) => {
@@ -42,6 +43,7 @@ const UserContex = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      setIsLoading(false);
     });
     return () => unsubscribe();
   });
@@ -55,6 +57,8 @@ const UserContex = ({ children }) => {
     updateUserProfileInfo,
     isDark,
     setIsDark,
+    isLoading,
+    setIsLoading,
   };
   return (
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
