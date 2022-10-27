@@ -128,30 +128,40 @@ const Header = () => {
                 </li>
               </>
             )}
+            {currentUser && (
+              <li>
+                <h1 className="font-bold text-white">{currentUser.email}</h1>
+              </li>
+            )}
           </ul>
-
+          {/* mobile view */}
           <div className="md:hidden">
-            <button
-              aria-label="Open Menu"
-              title="Open Menu"
-              className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline"
-              onClick={() => setIsMenuOpen(true)}
-            >
-              <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
-                />
-                <path
-                  fill="currentColor"
-                  d="M23,6H1C0.4,6,0,5.6,0,5s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,6,23,6z"
-                />
-                <path
-                  fill="currentColor"
-                  d="M23,20H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,20,23,20z"
-                />
-              </svg>
-            </button>
+            <div className="flex">
+              {currentUser && (
+                <h1 className="font-bold text-white">{currentUser.email}</h1>
+              )}
+              <button
+                aria-label="Open Menu"
+                title="Open Menu"
+                className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline"
+                onClick={() => setIsMenuOpen(true)}
+              >
+                <svg className="w-5 text-white" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M23,6H1C0.4,6,0,5.6,0,5s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,6,23,6z"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M23,20H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,20,23,20z"
+                  />
+                </svg>
+              </button>
+            </div>
             {isMenuOpen && (
               <div className="absolute top-0 left-0 w-full">
                 <div className="p-5 bg-white border rounded shadow-sm">
@@ -164,19 +174,18 @@ const Header = () => {
                         className="inline-flex items-center"
                       >
                         <svg
-                          className="w-8 text-deep-purple-accent-400"
-                          viewBox="0 0 24 24"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeMiterlimit="10"
-                          stroke="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
                           fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          className="w-6 h-6 text-black font-bold text-lg"
                         >
-                          <rect x="3" y="1" width="7" height="12" />
-                          <rect x="3" y="17" width="7" height="6" />
-                          <rect x="14" y="1" width="7" height="6" />
-                          <rect x="14" y="11" width="7" height="12" />
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+                          />
                         </svg>
                         <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
                           Be A Coder
@@ -231,36 +240,29 @@ const Header = () => {
                           Blogs
                         </Link>
                       </li>
-                      <li>
-                        <Link
-                          to="/signin"
-                          aria-label="Sign In"
-                          title="Sign In"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          Sign In
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/signout"
-                          aria-label="Sign Out"
-                          title="Sign Out"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          Sign Out
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/"
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                          aria-label="Sign up"
-                          title="Sign up"
-                        >
-                          Profile
-                        </Link>
-                      </li>
+                      {!currentUser ? (
+                        <li>
+                          <Link
+                            to="/signin"
+                            aria-label="Sign In"
+                            title="Sign In"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            Sign In
+                          </Link>
+                        </li>
+                      ) : (
+                        <li>
+                          <Link
+                            onClick={handleSignOut}
+                            aria-label="Sign Out"
+                            title="Sign Out"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            Sign Out
+                          </Link>
+                        </li>
+                      )}
                     </ul>
                   </nav>
                 </div>

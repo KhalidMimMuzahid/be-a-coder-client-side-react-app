@@ -40,19 +40,21 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/courses",
-        loader: () => fetch("http://localhost:5000/allcoursecategory"),
+        loader: () =>
+          fetch("https://b-a-coder-server.vercel.app/allcoursecategory"),
         element: <Courses />,
         children: [
           {
             path: "/courses",
-            loader: () => fetch("http://localhost:5000/allcourses"),
+            loader: () =>
+              fetch("https://b-a-coder-server.vercel.app/allcourses"),
             element: <DefaultAllCOurses />,
           },
           {
             path: "/courses/eachcategorycoures/:id",
             loader: async ({ params }) => {
               return fetch(
-                `http://localhost:5000/eachcategorycoures/${params.id}`
+                `https://b-a-coder-server.vercel.app/eachcategorycoures/${params.id}`
               );
             },
             element: <CoursesBody />,
@@ -60,7 +62,9 @@ export const routes = createBrowserRouter([
           {
             path: "/courses/selectedcourse/:id",
             loader: async ({ params }) => {
-              return fetch(`http://localhost:5000/eachcoures/${params.id}`);
+              return fetch(
+                `https://b-a-coder-server.vercel.app/eachcoures/${params.id}`
+              );
             },
             element: (
               <PrivetRoutes>
