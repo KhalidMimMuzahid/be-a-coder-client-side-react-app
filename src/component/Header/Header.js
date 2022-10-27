@@ -130,7 +130,9 @@ const Header = () => {
             )}
             {currentUser && (
               <li>
-                <h1 className="font-bold text-white">{currentUser.email}</h1>
+                <h1 className="font-bold text-white">
+                  {currentUser.displayName}
+                </h1>
               </li>
             )}
           </ul>
@@ -138,7 +140,9 @@ const Header = () => {
           <div className="md:hidden">
             <div className="flex">
               {currentUser && (
-                <h1 className="font-bold text-white">{currentUser.email}</h1>
+                <h1 className="font-bold text-white">
+                  {currentUser.displayName}
+                </h1>
               )}
               <button
                 aria-label="Open Menu"

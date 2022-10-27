@@ -3,16 +3,24 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/UserContex";
 
-const SignUp = () => {
-  const { signUpWithEmailAndPassword, signInWithGoogle, signInWithGithub } =
-    useContext(AuthContext);
+const SignUp = ({ updateUserInfo }) => {
+  const {
+    signUpWithEmailAndPassword,
+    signInWithGoogle,
+    signInWithGithub,
+    updateUserProfileInfo,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const displayName = e.target.name.value;
+    const userInfo = { displayName };
     signUpWithEmailAndPassword(email, password)
       .then((userCredential) => {
+        updateUserProfile(userInfo);
+        // console.log(userInfo);
         const user = userCredential.user;
         console.log(user);
         navigate("/");
@@ -46,6 +54,18 @@ const SignUp = () => {
         console.log(errorMessage);
       });
   };
+  const updateUserProfile = (userInfo) => {
+    console.log(userInfo);
+    updateUserProfileInfo(userInfo)
+      .then(() => {
+        // Profile updated!
+        // ...
+      })
+      .catch((error) => {
+        // An error occurred
+        // ...
+      });
+  };
   return (
     <div className="h-screen pt-28 border border-slate-900 border-4 flex justify-center">
       <div className="w-full max-w-md p-8 space-y-3 rounded-xl my-4 bg-gray-900 text-gray-100 border border-slate-900 border-4">
@@ -57,6 +77,19 @@ const SignUp = () => {
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
+            <label htmlFor="name" className="block text-gray-400">
+              Full Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Full Name"
+              className="w-full px-4 py-3 rounded-md border-gray-700 bg-gray-700 text-gray-100 focus:border-violet-400"
+              required
+            />
+          </div>
+          <div className="space-y-1 text-sm">
             <label htmlFor="email" className="block text-gray-400">
               Email
             </label>
@@ -66,6 +99,7 @@ const SignUp = () => {
               id="email"
               placeholder="Email"
               className="w-full px-4 py-3 rounded-md border-gray-700 bg-gray-700 text-gray-100 focus:border-violet-400"
+              required
             />
           </div>
           <div className="space-y-1 text-sm">
@@ -78,6 +112,7 @@ const SignUp = () => {
               id="password"
               placeholder="Password"
               className="w-full px-4 py-3 rounded-md border-gray-700 bg-gray-700 text-gray-100 focus:border-violet-400"
+              required
             />
             <div className="flex justify-end text-xs text-gray-400">
               <button>Forgot Password?</button>
