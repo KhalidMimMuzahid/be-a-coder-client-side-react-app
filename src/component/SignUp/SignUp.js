@@ -19,6 +19,7 @@ const SignUp = () => {
     const displayName = e.target.name.value;
     const photoURL = e.target.photo.value;
     const userInfo = { displayName, photoURL };
+    console.log(userInfo);
     setIsLoading(true);
     signUpWithEmailAndPassword(email, password)
       .then((userCredential) => {
